@@ -1183,6 +1183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSelectMenu: {fileID: 1574520346}
+  backgroundMusic: {fileID: 8300000, guid: 6a69101692d50f940bb98072943f2764, type: 3}
 --- !u!4 &482415134
 Transform:
   m_ObjectHideFlags: 0

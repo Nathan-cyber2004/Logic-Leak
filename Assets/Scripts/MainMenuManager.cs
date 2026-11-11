@@ -3,11 +3,30 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject levelSelectMenu;
+    [SerializeField] private GameObject levelSelectMenu;
+    [SerializeField] private AudioClip backgroundMusic;
+
+    private static AudioSource persistentMusic;
 
     void Start()
     {
-        levelSelectMenu.gameObject.SetActive(false);
+        if (levelSelectMenu != null)
+        {
+            levelSelectMenu.SetActive(false);
+        }
+
+        if (persistentMusic == null && backgroundMusic != null)
+        {
+            GameObject musicObject = new GameObject("Background Music");
+            DontDestroyOnLoad(musicObject);
+
+            persistentMusic = musicObject.AddComponent<AudioSource>();
+            persistentMusic.clip = backgroundMusic;
+            persistentMusic.loop = true;
+            persistentMusic.playOnAwake = false;
+            persistentMusic.spatialBlend = 0f;
+            persistentMusic.Play();
+        }
     }
 
     public void LevelSelect()
