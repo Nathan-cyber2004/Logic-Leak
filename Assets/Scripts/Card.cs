@@ -4,132 +4,65 @@ using UnityEngine.InputSystem;
 public class Card : MonoBehaviour
 {
     [SerializeField] private string value;
-
     private static Card activeCard;
-
     private Collider2D cardCollider;
     private Camera mainCamera;
-    private Vector3 originalPosition;
-    private Vector3 pointerOffset;
+    private Vector3 originalPosition, pointerOffset;
     private bool isDragging;
     private OnDropCard currentDropArea;
-
     public string Value => value;
 
     private void Awake()
     {
         originalPosition = transform.position;
         cardCollider = GetComponent<Collider2D>();
-        if (cardCollider == null)
-        {
-            Debug.LogError("Card requires a Collider2D to support dragging.", this);
-        }
-
         mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("Card dragging requires a camera tagged MainCamera.", this);
-        }
+        if (cardCollider == null) Debug.LogError("Card requires a Collider2D to support dragging.", this);
+        if (mainCamera == null) Debug.LogError("Card dragging requires a camera tagged MainCamera.", this);
     }
-
     private void Update()
     {
-        if (Mouse.current == null || cardCollider == null || mainCamera == null)
-        {
-            return;
-        }
-
+        if (Mouse.current == null || cardCollider == null || mainCamera == null) return;
         Vector2 screenPosition = Mouse.current.position.ReadValue();
-        Vector3 pointerPosition = GetMousePositionInWorldSpace(screenPosition);
-        if (Mouse.current.leftButton.wasPressedThisFrame &&
-            activeCard == null &&
-            cardCollider.OverlapPoint(pointerPosition))
+        Vector3 pointer = GetMousePositionInWorldSpace(screenPosition);
+        if (Mouse.current.leftButton.wasPressedThisFrame && activeCard == null && cardCollider.OverlapPoint(pointer))
         {
-            if (currentDropArea != null)
-            {
-                currentDropArea.ClearCard(this);
-                currentDropArea = null;
-            }
-
+            if (currentDropArea != null) { currentDropArea.ClearCard(this); currentDropArea = null; }
             activeCard = this;
-            pointerOffset = transform.position - pointerPosition;
+            pointerOffset = transform.position - pointer;
             isDragging = true;
         }
-
-        if (!isDragging)
-        {
-            return;
-        }
-
-        if (Mouse.current.leftButton.isPressed)
-        {
-            transform.position = pointerPosition + pointerOffset;
-        }
-
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            CompleteDrop(pointerPosition);
-        }
+        if (!isDragging) return;
+        if (Mouse.current.leftButton.isPressed) transform.position = pointer + pointerOffset;
+        if (Mouse.current.leftButton.wasReleasedThisFrame) CompleteDrop(pointer);
     }
-
     private void OnDisable()
     {
-        if (currentDropArea != null)
-        {
-            currentDropArea.ClearCard(this);
-            currentDropArea = null;
-        }
-
-        if (activeCard == this)
-        {
-            activeCard = null;
-            isDragging = false;
-        }
+        if (currentDropArea != null) { currentDropArea.ClearCard(this); currentDropArea = null; }
+        if (activeCard == this) { activeCard = null; isDragging = false; }
     }
-
-    private void CompleteDrop(Vector3 pointerPosition)
+    private void CompleteDrop(Vector3 pointer)
     {
         isDragging = false;
         activeCard = null;
-
-        Collider2D[] hitColliders = Physics2D.OverlapPointAll(pointerPosition);
-        foreach (Collider2D hitCollider in hitColliders)
+        foreach (Collider2D hit in Physics2D.OverlapPointAll(pointer))
         {
-            if (hitCollider == cardCollider)
-            {
-                continue;
-            }
-
-            ICardDropArea cardDropArea = hitCollider.GetComponentInParent<ICardDropArea>();
-            if (cardDropArea != null && cardDropArea.OnCardDrop(this))
-            {
-                return;
-            }
+            if (hit == cardCollider) continue;
+            ICardDropArea area = hit.GetComponentInParent<ICardDropArea>();
+            if (area != null && area.OnCardDrop(this)) return;
         }
-
         transform.position = originalPosition;
     }
-
     private Vector3 GetMousePositionInWorldSpace(Vector2 screenPosition)
     {
-        Vector3 screenPositionWithDepth = screenPosition;
-        screenPositionWithDepth.z = mainCamera.WorldToScreenPoint(transform.position).z;
-        return mainCamera.ScreenToWorldPoint(screenPositionWithDepth);
+        Vector3 point = screenPosition;
+        point.z = mainCamera.WorldToScreenPoint(transform.position).z;
+        return mainCamera.ScreenToWorldPoint(point);
     }
-
-    internal void SetDropArea(OnDropCard dropArea)
-    {
-        currentDropArea = dropArea;
-    }
-
+    internal void SetDropArea(OnDropCard area) { currentDropArea = area; }
     internal void ReturnToOriginalPosition()
     {
-        if (currentDropArea != null)
-        {
-            currentDropArea.ClearCard(this);
-            currentDropArea = null;
-        }
-
+        if (currentDropArea != null) { currentDropArea.ClearCard(this); currentDropArea = null; }
         transform.position = originalPosition;
     }
 }

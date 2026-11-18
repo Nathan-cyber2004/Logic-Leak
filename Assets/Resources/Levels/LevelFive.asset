@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be9404c161c4cc42bc674df3013ace2, type: 3}
+  m_Name: LevelFive
+  m_EditorClassIdentifier: 
+  worldName: LevelFive
+  concept: Debugging
+  levelIndex: 4
+  nextScene: MainMenu
+  monster: {fileID: 0}
+  adAfter: 0
+  playerHP: 100
+  battleHP: 100
+  bossHP: 160
+  correctDamage: 25
+  comboBonusDamage: 5
+  wrongDamage: 15
+  bossWrongDamage: 25
+  questionTime: 15
+  bossQuestionTime: 10
+  lessons:
+  - text: "Bugs are normal! Look for missing colons, quotes, indentation, and typos."
+    code: "if x > 3: # colon\n    print(x) # spelling"
+  - text: "Python names common error types. Learn to recognize them."
+    code: "TypeError  NameError\nValueError IndexError\nSyntaxError"
+  - text: "Read the line, find what breaks the rules, then fix it."
+    code: "# Check syntax, spelling, and values"
+  buildChallenges: []
+  questions:
+  - tag: "DEBUG"
+    prompt: "What does print(2 + 3) display?"
+    code: "print(2 + 3)"
+    answer: "5"
+    explanation: "The + operator adds integers."
+    wrong:
+    - "23"
+    - "2 + 3"
+    - "6"
+  - tag: "DEBUG"
+    prompt: "Which operator means not equal to?"
+    code: "if status __ \"ready\":"
+    answer: "!="
+    explanation: "!= tests whether values differ."
+    wrong:
+    - "="
+    - "=="
+    - "!"
+  - tag: "DEBUG"
+    prompt: "What does this print?"
+    code: "power = 100\nprint(power)"
+    answer: "100"
+    explanation: "print(power) displays its stored value."
+    wrong:
+    - "power"
+    - "0"
+    - "True"
+  bossQuestions:
+  - tag: "DEBUG"
+    prompt: "What does print(2 + 3) display?"
+    code: "print(2 + 3)"
+    answer: "5"
+    explanation: "The + operator adds integers."
+    wrong:
+    - "23"
+    - "2 + 3"
+    - "6"
+  - tag: "DEBUG"
+    prompt: "Which operator means not equal to?"
+    code: "if status __ \"ready\":"
+    answer: "!="
+    explanation: "!= tests whether values differ."
+    wrong:
+    - "="
+    - "=="
+    - "!"
+  - tag: "DEBUG"
+    prompt: "What does this print?"
+    code: "power = 100\nprint(power)"
+    answer: "100"
+    explanation: "print(power) displays its stored value."
+    wrong:
+    - "power"
+    - "0"
+    - "True"

@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be9404c161c4cc42bc674df3013ace2, type: 3}
+  m_Name: LevelTwo
+  m_EditorClassIdentifier: 
+  worldName: LevelTwo
+  concept: Conditions
+  levelIndex: 1
+  nextScene: LevelThree
+  monster: {fileID: 0}
+  adAfter: 0
+  playerHP: 100
+  battleHP: 100
+  bossHP: 160
+  correctDamage: 25
+  comboBonusDamage: 5
+  wrongDamage: 15
+  bossWrongDamage: 25
+  questionTime: 15
+  bossQuestionTime: 10
+  lessons:
+  - text: "if runs code only when a condition is True. Do not forget the colon!"
+    code: "if hp < 20:\n    print(\"Heal!\")"
+  - text: "Use == to compare values. A single = assigns a value."
+    code: "x == 5   # compare\nx = 5    # assign"
+  - text: "elif adds another check, else handles the rest."
+    code: "if x < 10:\n    ...\nelif x < 20:\n    ...\nelse:\n    ..."
+  buildChallenges: []
+  questions:
+  - tag: "CONDITIONS"
+    prompt: "Which operator checks whether values are equal?"
+    code: "if power __ 5:\n    open_gate()"
+    answer: "=="
+    explanation: "Use == to compare; = assigns."
+    wrong:
+    - "="
+    - "!="
+    - ">"
+  - tag: "CONDITIONS"
+    prompt: "What type are True and False?"
+    code: "powered = True\nlocked = False"
+    answer: "bool"
+    explanation: "Boolean values represent True or False."
+    wrong:
+    - "str"
+    - "int"
+    - "float"
+  - tag: "CONDITIONS"
+    prompt: "Which branch runs when the if condition is false?"
+    code: "if power > 50:\n    open_gate()\n__:\n    recharge()"
+    answer: "else"
+    explanation: "else handles the false case."
+    wrong:
+    - "elif"
+    - "then"
+    - "for"
+  bossQuestions:
+  - tag: "CONDITIONS"
+    prompt: "Which operator checks whether values are equal?"
+    code: "if power __ 5:\n    open_gate()"
+    answer: "=="
+    explanation: "Use == to compare; = assigns."
+    wrong:
+    - "="
+    - "!="
+    - ">"
+  - tag: "CONDITIONS"
+    prompt: "What type are True and False?"
+    code: "powered = True\nlocked = False"
+    answer: "bool"
+    explanation: "Boolean values represent True or False."
+    wrong:
+    - "str"
+    - "int"
+    - "float"
+  - tag: "CONDITIONS"
+    prompt: "Which branch runs when the if condition is false?"
+    code: "if power > 50:\n    open_gate()\n__:\n    recharge()"
+    answer: "else"
+    explanation: "else handles the false case."
+    wrong:
+    - "elif"
+    - "then"
+    - "for"

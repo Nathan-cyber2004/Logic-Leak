@@ -1,4 +1,4 @@
-public interface ICardDropArea 
+public interface ICardDropArea
 {
     bool OnCardDrop(Card card);
 }
